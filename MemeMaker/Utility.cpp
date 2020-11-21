@@ -2,16 +2,14 @@
 #include "Text.h"
 #include <vector>
 
-using namespace std;
-
 void Utility::printText(const std::string& Input)
 {
 	Text* text = new Text();
 	text->makeRasterFont();
 	
 	//Tách từng từ ra khỏi câu
-	string word = "";
-	vector<string> sentence;
+	std::string word = "";
+	std::vector<std::string> sentence;
 	for (auto x : Input)
 	{
 		if (x == ' ')
@@ -27,11 +25,11 @@ void Utility::printText(const std::string& Input)
 
 	//Tạo text
 	int length = Config::WINDOW_WIDTH / 2 - Input.length() * 8;
-	for (string x : sentence)
+	for (std::string x : sentence)
 	{
 		glRasterPos2i(length, 25);
 		text->generateText(x);
-		length += x.length()*8 + (x.length() - 1) * 4;
+		length += x.length()*8 + (x.length() - 1) * 8 + 15;
 	}
 
 }

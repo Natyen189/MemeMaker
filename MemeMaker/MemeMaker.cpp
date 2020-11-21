@@ -15,7 +15,7 @@ void display()
 
 	//Hiển thị text với font định sẵn
 	glColor3fv(white);
-		Utility::printText("THIS IS NOT A MEME");
+		Utility::printText("THIS IS A MEME");
 	glFlush();
 }
 
