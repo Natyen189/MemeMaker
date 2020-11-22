@@ -30,6 +30,9 @@
     <ClCompile Include="Text.cpp">
       <Filter>Source Files\Private</Filter>
     </ClCompile>
+    <ClCompile Include="BitMap.cpp">
+      <Filter>Source Files\Private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utility.h">
@@ -39,6 +42,9 @@
       <Filter>Source Files\Public</Filter>
     </ClInclude>
     <ClInclude Include="Text.h">
+      <Filter>Source Files\Public</Filter>
+    </ClInclude>
+    <ClInclude Include="BitMap.h">
       <Filter>Source Files\Public</Filter>
     </ClInclude>
   </ItemGroup>
