@@ -10,5 +10,4 @@ public:
 	unsigned char* data;
 
 	static BitMap* loadTexture(std::string filename);
-	void displayTexture();
 };

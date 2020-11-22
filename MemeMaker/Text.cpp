@@ -3,7 +3,6 @@
 void Text::makeRasterFont()
 {
 	GLuint i, j;
-	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	fontOffset = glGenLists(128);
 	for (i = 0, j = 'A'; i < 26; i++, j++) {
 		glNewList(fontOffset + j, GL_COMPILE);

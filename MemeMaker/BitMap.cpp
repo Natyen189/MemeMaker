@@ -45,8 +45,3 @@ BitMap* BitMap::loadTexture(std::string filename)
 
 	return bmp;
 }
-
-void BitMap::displayTexture()
-{
-
-}

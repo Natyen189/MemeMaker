@@ -16,9 +16,6 @@ public:
 	//Dùng để in một dòng text với font đã được cài đặt sẵn
 	static void printText(const std::string& Input);
 
-	//Dùng để đọc ảnh
-	static void ReadImage();
-
 	//Dùng để hiển thị ảnh
 	static void DisplayImage();
 
