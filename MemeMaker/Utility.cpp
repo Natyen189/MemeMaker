@@ -4,7 +4,8 @@
 
 Text* text = new Text();
 BitMap* image = new BitMap();
-unsigned int textures[1];
+
+GLubyte colorTable[256][3];
 
 const GLfloat Config::edgeDetection[3][3] = {
 		 { -1, -1, -1 },
@@ -74,20 +75,30 @@ void Utility::Filter(Config::Filter FilterType)
 	{
 	case Config::Filter::EDGE_DETECTION:
 		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::edgeDetection);
+		glEnable(GL_CONVOLUTION_2D);
 		break;
 	case Config::Filter::BLUR:
 		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::blur);
+		glEnable(GL_CONVOLUTION_2D);
 		break;
 	case Config::Filter::SHARPEN:
 		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::sharpen);
+		glEnable(GL_CONVOLUTION_2D);
 		break;
 	case Config::Filter::BRIGHT:
 		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::bright);
+		glEnable(GL_CONVOLUTION_2D);
 		break;
+	case Config::Filter::INVERT:
+		for (int i = 0; i < 256; ++i) {
+			colorTable[i][0] = 255 - i;
+			colorTable[i][1] = 255 - i;
+			colorTable[i][2] = 255 - i;
+		}
+		glColorTable(GL_POST_CONVOLUTION_COLOR_TABLE, GL_RGB, 256, GL_RGB, GL_UNSIGNED_BYTE, colorTable);
+		glEnable(GL_POST_CONVOLUTION_COLOR_TABLE);
 	default:
 		break;
 	}
-
-	glEnable(GL_CONVOLUTION_2D);
 }
 

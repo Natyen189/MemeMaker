@@ -16,6 +16,7 @@ public:
 		BLUR,
 		SHARPEN,
 		BRIGHT,
+		INVERT,
 	};
 
 	const static GLfloat edgeDetection[3][3];

@@ -1,4 +1,6 @@
 ﻿#include "Utility.h"
+static GLdouble zoomFactor = 1.0;
+static GLint height;
 
 void display()
 {	
@@ -12,7 +14,7 @@ void display()
 	glFlush();
 
 	//Viết hàm để hiển thị ảnh ở đây
-	Utility::DisplayImage("Images/1.bmp");
+	Utility::DisplayImage("Images/3.bmp");
 }
 
 void reshape(int w, int h)
@@ -43,14 +45,40 @@ void keyboard(unsigned char key, int x, int y)
 	case 52:
 		Utility::Filter(Config::Filter::BRIGHT);
 		break;
+	case 53:
+		Utility::Filter(Config::Filter::INVERT);
+		break;
 	case 27:
 		exit(EXIT_SUCCESS);
 		break;
+
+	case 'r':
+		zoomFactor = 1.0;
+		break;
+	case 'z':
+		zoomFactor += 0.5;
+		break;
+	case 'Z':
+		zoomFactor -= 0.5;
+		break;
+
 	default:
 		glDisable(GL_CONVOLUTION_2D);
+		glDisable(GL_POST_CONVOLUTION_COLOR_TABLE);
 	}
 
 	glutPostRedisplay();
+}
+
+void motion(int x, int y)
+{
+	static GLint screeny;
+	screeny = height - (GLint)y;
+	glRasterPos2i(x, screeny);
+	glPixelZoom(zoomFactor, zoomFactor);
+	glCopyPixels(0, 0, 512, 512, GL_COLOR);
+	glPixelZoom(1.0, 2.0);
+	glFlush();
 }
 
 int main(int argc, char** argv)
@@ -67,6 +95,7 @@ int main(int argc, char** argv)
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 	glutKeyboardFunc(keyboard);
+	glutMotionFunc(motion);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
 	glutMainLoop();
