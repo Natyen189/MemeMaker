@@ -1,10 +1,5 @@
 ﻿#include "Utility.h"
 
-void init()
-{
-	
-}
-
 void display()
 {	
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
@@ -13,16 +8,16 @@ void display()
 	//Hiển thị text với font định sẵn
 	GLfloat white[3] = { 1.0, 1.0, 1.0 };
 	glColor3fv(white);
-	Utility::printText("THIS IS MY FUTURE");
+	Utility::printText("MEME IN A NUTSHELL");
 	glFlush();
 
 	//Viết hàm để hiển thị ảnh ở đây
-	Utility::DisplayImage();
+	Utility::DisplayImage("Images/1.bmp");
 }
 
 void reshape(int w, int h)
 {
-	//glutReshapeWindow(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT);
+	glutReshapeWindow(Config::WINDOW_WIDTH, Config::WINDOW_HEIGHT);
 	glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
@@ -45,9 +40,14 @@ void keyboard(unsigned char key, int x, int y)
 	case 51:
 		Utility::Filter(Config::Filter::SHARPEN);
 		break;
+	case 52:
+		Utility::Filter(Config::Filter::BRIGHT);
+		break;
 	case 27:
 		exit(EXIT_SUCCESS);
 		break;
+	default:
+		glDisable(GL_CONVOLUTION_2D);
 	}
 
 	glutPostRedisplay();
@@ -66,7 +66,6 @@ int main(int argc, char** argv)
 		/* Problem: glewInit failed, something is seriously wrong. */
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
-	init();
 	glutKeyboardFunc(keyboard);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);

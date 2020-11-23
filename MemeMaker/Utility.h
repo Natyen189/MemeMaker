@@ -17,7 +17,7 @@ public:
 	static void printText(const std::string& Input);
 
 	//Dùng để hiển thị ảnh
-	static void DisplayImage();
+	static void DisplayImage(const std::string& Input);
 
 	//Áp dụng convolution ở đây
 	static void Filter(Config::Filter FilterType);
