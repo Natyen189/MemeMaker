@@ -6,6 +6,24 @@ Text* text = new Text();
 BitMap* image = new BitMap();
 unsigned int textures[1];
 
+const GLfloat Config::edgeDetection[3][3] = {
+		 { -1, -1, -1 },
+		 { -1, 8, -1 },
+		 { -1, -1, -1 }
+};
+
+const GLfloat Config::blur[3][3] = {
+		 { 0.1111, 0.1111, 0.1111 },
+		 { 0.1111, 0.1111, 0.1111 },
+		 { 0.1111, 0.1111, 0.1111 }
+};
+
+const GLfloat Config::sharpen[3][3] = {
+		 { 0, -1, 0 },
+		 { -1, 5, -1 },
+		 { 0, -1, 0 }
+};
+
 void Utility::printText(const std::string& Input)
 {
 	text->makeRasterFont();
@@ -44,15 +62,23 @@ void Utility::DisplayImage()
 	glFlush();
 }
 
-void Utility::Filter()
+void Utility::Filter(Config::Filter FilterType)
 {
-	GLfloat laplacian[3][3] = {
-		 { -1, -1, -1 },
-		 { -1, 8, -1 },
-		 { -1, -1, -1 }
-	};
+	switch (FilterType)
+	{
+	case Config::Filter::EDGE_DETECTION:
+		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::edgeDetection);
+		break;
+	case Config::Filter::BLUR:
+		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::blur);
+		break;
+	case Config::Filter::SHARPEN:
+		glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_LUMINANCE, 3, 3, GL_LUMINANCE, GL_FLOAT, Config::sharpen);
+		break;
+	default:
+		break;
+	}
 
-	glConvolutionFilter2D(GL_CONVOLUTION_2D, GL_RGB, 3, 3, GL_RGB, GL_FLOAT, laplacian);
 	glEnable(GL_CONVOLUTION_2D);
 }
 

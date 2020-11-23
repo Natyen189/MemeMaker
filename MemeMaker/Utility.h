@@ -20,5 +20,5 @@ public:
 	static void DisplayImage();
 
 	//Áp dụng convolution ở đây
-	static void Filter();
+	static void Filter(Config::Filter FilterType);
 };

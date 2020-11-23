@@ -2,8 +2,7 @@
 
 void init()
 {
-	//Viết hàm filter ảnh ở đây
-	Utility::Filter();
+	
 }
 
 void display()
@@ -34,6 +33,26 @@ void reshape(int w, int h)
 	glShadeModel(GL_FLAT);  // Sets the shading model
 }
 
+void keyboard(unsigned char key, int x, int y)
+{
+	switch (key) {
+	case 49:
+		Utility::Filter(Config::Filter::BLUR);
+		break;
+	case 50:
+		Utility::Filter(Config::Filter::EDGE_DETECTION);
+		break;
+	case 51:
+		Utility::Filter(Config::Filter::SHARPEN);
+		break;
+	case 27:
+		exit(EXIT_SUCCESS);
+		break;
+	}
+
+	glutPostRedisplay();
+}
+
 int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
@@ -48,6 +67,7 @@ int main(int argc, char** argv)
 		fprintf(stderr, "Error: %s\n", glewGetErrorString(err));
 	}
 	init();
+	glutKeyboardFunc(keyboard);
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
 	glutMainLoop();
